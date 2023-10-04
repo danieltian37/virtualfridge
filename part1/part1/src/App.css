@@ -1,0 +1,48 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.fridge {
+  height: 52em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  position: absolute;
+  top: 51.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Inputs {
+  position: absolute;
+  top: 50%;
+  left: 7.5%;
+  text-align: center;
+}
+
+.logo {
+  height: 26em;
+  width: 12em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  position: absolute;
+  top: 51.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
+.card {
+  padding: 2em;
+}

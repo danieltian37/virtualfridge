@@ -1,0 +1,123 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+  font-family: 'LexendDeca-Regular';
+    src: local('LexendDeca-Regular'), url('./fonts/LexendDeca-Regular.eot'); /* IE9 Compat Modes */
+    src: url('./fonts/LexendDeca-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('./fonts/LexendDeca-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+        url('./fonts/LexendDeca-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+        url('./fonts/LexendDeca-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+        url('./fonts/LexendDeca-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-weight: 500;
+    font-style: normal;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+.submitButton {
+  position: absolute;
+  top: 140%;
+  left: 18%;  
+  text-align: center;
+  color: #646cff;
+}
+.submitButton.hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'LexendDeca-Regular';
+}
+
+h1 {
+  font-family: 'LexendDeca-Regular';
+  font-size: 4.0em;
+  line-height: 1.1;
+  position: absolute;
+  text-align: center;
+  top: 17.8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h2 {
+  font-family: 'LexendDeca-Regular';
+  font-size: 4.0em;
+  line-height: 1.1;
+  position: absolute;
+  text-align: center;
+  top: 6%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.b {
+  text-align: center;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  position: absolute;
+  left: 15%;
+  top: 40%;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

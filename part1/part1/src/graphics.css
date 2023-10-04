@@ -1,0 +1,8 @@
+.milk {
+    z-index: -1;
+    height: 1em;
+    position: absolute;
+    top: 51.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
