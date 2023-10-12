@@ -16,17 +16,15 @@ const ItemContext = createContext({
 });
 
 const ItemContextProvider = ( {children} ) => {
-    const [showMore, setShowMore] = useState(initialState.showMore);
     const [showMilk, setShowMilk] = useState(initialState.showMilk);
-    console.log("please dont reload")
+    const [showMore, setShowMore] = useState(initialState.showMore);
 
-    const updateShowMore = () => {
+    const updateShowMore = async () => {
         setShowMore(!showMore);
     }
 
-    const updateShowMilk = () => {
+    const updateShowMilk = async () => {
         setShowMilk(true);
-        console.log(showMilk);
     }
 
 

@@ -1,8 +1,20 @@
-.milk {
-    z-index: -1;
-    height: 1em;
+.fridge {
+    z-index: 0;
+    height: 52em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
     position: absolute;
     top: 51.5%;
     left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.milk {
+    z-index: 1;
+    height: 7em;
+    position: absolute;
+    top: 35.5%;
+    left: 56%;
     transform: translate(-50%, -50%);
 }

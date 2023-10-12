@@ -1,20 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client'
 import ItemContext from './ItemContext'
-import AddMilk from "../components/Graphics"
 
 
 const ItemForm = ()=> {
-    // const { showMilk, setShowMilk, showMore, setShowMore } = useContext(ItemContext);
     const itemContext = useContext(ItemContext);
 
     const [name, setName] = useState("");
     const [expDate, setExpDate] = useState("");
 
     const AddItem = () => {
-        itemContext.updateShowMore();
         itemContext.updateShowMilk();
-        console.log(itemContext.showMilk);
+        itemContext.updateShowMore();
 
         console.log("you entered " + name);
         console.log("this expires " + expDate);
@@ -37,8 +34,6 @@ const ItemForm = ()=> {
                 onClick = {AddItem} > 
                 Add item to fridge
                 </button> : "" }
-
-                {itemContext.showMilk ? <AddMilk/> : ""}
         </div>
     )
 }

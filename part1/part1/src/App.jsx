@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import OpenFridge from './pages/fridge';
 import NotFoundPage from './pages/NotFoundPage';
-import { ItemContextProvider } from './components/ItemContext'
+import { ItemContextProvider } from './components/ItemContext';
 
 
 
