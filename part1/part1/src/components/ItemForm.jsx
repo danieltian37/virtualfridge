@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client'
-import ItemContext from './ItemContext'
+import ItemContext from '../context/ItemContext'
 
 
 const ItemForm = ()=> {
@@ -10,8 +10,15 @@ const ItemForm = ()=> {
     const [expDate, setExpDate] = useState("");
 
     const AddItem = () => {
-        itemContext.updateShowMilk();
         itemContext.updateShowMore();
+
+        if (itemContext.showMilk) {
+            itemContext.removeMilk();
+        } else {
+            itemContext.updateShowMilk();
+        }
+
+        itemContext.addItem(name, expDate, name + ".svg", 123);
 
         console.log("you entered " + name);
         console.log("this expires " + expDate);
