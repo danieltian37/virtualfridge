@@ -4,44 +4,43 @@ import PropTypes from 'prop-types';
 //initial state
 
 const initialState = {
-    showMore: false,
+    showAdd: false,
     showMilk: false,
-    itemList: [{ name: "milk", expDate: 1697132997, image: "milk.svg", quantity: 1 },
-    { name: "eggs", expDate: 1697132997, image: "eggs.svg", quantity: 1 }]
+    itemList: []
 };
 
 const ItemContext = createContext({
     showMilk: false,
     setShowMilk: () => { },
-    showMore: false,
-    setShowMore: () => { },
+    showAdd: false,
+    setShowAdd: () => { },
 });
 
 const ItemContextProvider = ({ children }) => {
-    const [showMilk, setShowMilk] = useState(initialState.showMilk);
-    const [showMore, setShowMore] = useState(initialState.showMore);
+
+    const [showMilk, setShowMilk] = useState(undefined);
+
+    const [showAdd, setShowAdd] = useState(initialState.showAdd);
     const [itemList, setItemList] = useState(initialState.itemList);
+    console.log(showMilk);
+
+    useEffect(() => {
+        const localMilk = localStorage.getItem("showMilk");
+        setShowMilk(localMilk ? localMilk : '');
+    }, [])
     
     useEffect(() => {
-        if (localStorage.getItem("showMilk") === null) {
-            setShowMilk(false);
-        } 
         if (showMilk !== undefined) {
-            localStorage.setItem("showMilk", showMilk);
-        };
+            localStorage.setItem("showMilk", showMilk); 
+        }
     }, [showMilk]);
 
-
-    const updateShowMore = async () => {
-        setShowMore(!showMore);
+    const updateShowAdd = async () => {
+        setShowAdd(!showAdd);
     }
 
     const updateShowMilk = async () => {
-        setShowMilk(true);
-    }
-
-    const removeMilk = () => {
-        setShowMilk(false);
+        setShowMilk(!showMilk);
     }
 
     const addItem = (name, expDate, image, quantity) => {
@@ -56,12 +55,12 @@ const ItemContextProvider = ({ children }) => {
 
     return (
         <ItemContext.Provider value={{
-            showMore,
-            updateShowMore,
+            showAdd,
+            updateShowAdd,
             showMilk,
             updateShowMilk,
             addItem,
-            removeMilk
+            itemList
         }}>
             {children}
         </ItemContext.Provider>

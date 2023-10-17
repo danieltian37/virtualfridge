@@ -18,3 +18,13 @@
     left: 56%;
     transform: translate(-50%, -50%);
 }
+
+.eggs {
+    z-index: 1;
+    height: 7em;
+    position: absolute;
+    top: 40.5%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+}
+

@@ -10,13 +10,9 @@ const ItemForm = ()=> {
     const [expDate, setExpDate] = useState("");
 
     const AddItem = () => {
-        itemContext.updateShowMore();
+        itemContext.updateShowAdd();
 
-        if (itemContext.showMilk) {
-            itemContext.removeMilk();
-        } else {
-            itemContext.updateShowMilk();
-        }
+        itemContext.updateShowMilk();
 
         itemContext.addItem(name, expDate, name + ".svg", 123);
 
@@ -37,7 +33,7 @@ const ItemForm = ()=> {
                 enter expiration date of item: <input type='date' value = {expDate} onChange = {(f) => setExpDate(f.target.value)}/>
             </label>
         </form>
-            {itemContext.showMore ? < button className='submitButton'
+            {itemContext.showAdd ? < button className='submitButton'
                 onClick = {AddItem} > 
                 Add item to fridge
                 </button> : "" }
