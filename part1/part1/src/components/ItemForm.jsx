@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import ItemContext from '../context/ItemContext'
 
 
-const ItemForm = ()=> {
+const ItemForm = () => {
     const itemContext = useContext(ItemContext);
 
     const [name, setName] = useState("");
@@ -23,13 +23,13 @@ const ItemForm = ()=> {
     
     return (
         <div className='Inputs'>
-        <form>
-            <label>
+        <form>  
+            <label className="userInput">
                 enter name of item: <input type='text' value = {name} onChange ={(e) => setName(e.target.value)} />
             </label>
         </form>
         <form>
-            <label>
+            <label className="userInput">
                 enter expiration date of item: <input type='date' value = {expDate} onChange = {(f) => setExpDate(f.target.value)}/>
             </label>
         </form>
