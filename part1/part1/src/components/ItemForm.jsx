@@ -11,15 +11,12 @@ const ItemForm = () => {
 
     const AddItem = () => {
         itemContext.updateShowAdd();
-
-        itemContext.updateShowMilk();
-
         itemContext.addItem(name, expDate, name + ".svg", 123);
 
         console.log("you entered " + name);
         console.log("this expires " + expDate);
     }
-    
+
     
     return (
         <div className='Inputs'>

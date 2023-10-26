@@ -5,13 +5,10 @@ import PropTypes from 'prop-types';
 
 const initialState = {
     showAdd: false,
-    showMilk: false,
-    itemList: []
+    itemList: JSON.parse(localStorage.getItem("itemList")),
 };
 
 const ItemContext = createContext({
-    showMilk: false,
-    setShowMilk: () => { },
     showAdd: false,
     setShowAdd: () => { },
     showRemove: false,
@@ -20,44 +17,34 @@ const ItemContext = createContext({
 
 const ItemContextProvider = ({ children }) => {
 
-    const [showMilk, setShowMilk] = useState(undefined);
     const [showAdd, setShowAdd] = useState(initialState.showAdd);
     const [showRemove, setShowRemove] = useState(initialState.showRemove);
     const [itemList, setItemList] = useState(initialState.itemList);
 
-
-    console.log(showMilk);
-
     useEffect(() => {
-        const localMilk = localStorage.getItem("showMilk");
-        setShowMilk(localMilk ? localMilk : '');
+        const localItemList = JSON.parse(localStorage.getItem("itemList"));
+        if (localItemList !== null) {
+            setItemList(localItemList);
+        } else {
+            console.log("failure"); 
+            setItemList([]);
+        }
     }, [])
     
     useEffect(() => {
-        if (showMilk !== undefined) {
-            localStorage.setItem("showMilk", showMilk); 
+        if (itemList != []) {
+            localStorage.setItem("itemList", JSON.stringify(itemList));
         }
-    }, [showMilk]);
-
-    useEffect(() => {
-        const localItemList = localStorage.getItem("itemList");
-        setItemList(localItemList ? localItemList : "");
-    }, [])
-
-    useEffect(() => {
-        if (itemList !== undefined) {
-            localStorage.setItem("itemList", itemList);
-        }
-
     }, [itemList])
+    
+
+    console.log("locally: " + localStorage.getItem("itemList"));
 
     const updateShowAdd = async () => {
         setShowAdd(!showAdd);
+        console.log(showAdd);
     }
 
-    const updateShowMilk = async () => {
-        setShowMilk(!showMilk);
-    }
 
     const updateShowRemove = () => {
         setShowRemove(!showRemove);
@@ -66,10 +53,11 @@ const ItemContextProvider = ({ children }) => {
     const addItem = (name, expDate, image, quantity) => {
         setItemList([...itemList, { name, expDate, image, quantity }]);
         console.log(itemList);
+
     }
 
     const removeItem = (name) => {
-        setItemList([itemList.filter(function(e) {return e[0] != name})])
+        setItemList(itemList.filter(function(e) {return e.name != name}))
         console.log(itemList);
     }
 
@@ -80,11 +68,10 @@ const ItemContextProvider = ({ children }) => {
             updateShowAdd,
             showRemove,
             updateShowRemove,
-            showMilk,
-            updateShowMilk,
             addItem,
+            removeItem,
             itemList,
-            removeItem
+            setItemList,
         }}>
             {children}
         </ItemContext.Provider>

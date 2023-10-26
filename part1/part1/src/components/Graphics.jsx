@@ -5,10 +5,6 @@ import ItemContext from "../context/ItemContext"
 import React, { useContext, useState } from 'react';
 
 function AddMilk () {
-    const {showMilk, setShowMilk} = useContext(ItemContext);
-    console.log(showMilk);
-
-
     return (
         <>
         <img src={eggs} className="eggs" alt="Eggs" />
