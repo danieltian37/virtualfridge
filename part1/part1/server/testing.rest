@@ -1,0 +1,9 @@
+POST http://localhost:3002/api/items
+Content-Type: application/json
+
+{
+    "name": "milk",
+    "expDate": "",
+    "image": "milk.svg",
+    "id": 3
+}

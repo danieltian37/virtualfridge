@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 //initial state
 
@@ -15,13 +16,23 @@ const ItemContext = createContext({
     setShowRemove: () => { },
 });
 
+
 const ItemContextProvider = ({ children }) => {
 
     const [showAdd, setShowAdd] = useState(initialState.showAdd);
     const [showRemove, setShowRemove] = useState(initialState.showRemove);
     const [itemList, setItemList] = useState(initialState.itemList);
+    const [counter, setCounter] = useState(initialState.itemList);
 
     useEffect(() => {
+        axios
+            .get('http://localhost:3001/itemList').then(response => {
+                const notes = response.data;
+                console.log(notes);
+                setItemList(notes);
+        })
+
+        /* LOCAL STORAGE CODE
         const localItemList = JSON.parse(localStorage.getItem("itemList"));
         if (localItemList !== null) {
             setItemList(localItemList);
@@ -29,16 +40,20 @@ const ItemContextProvider = ({ children }) => {
             console.log("failure"); 
             setItemList([]);
         }
+        */
     }, [])
-    
+    /*
     useEffect(() => {
         if (itemList != []) {
             localStorage.setItem("itemList", JSON.stringify(itemList));
         }
+
     }, [itemList])
+    */
+    
     
 
-    console.log("locally: " + localStorage.getItem("itemList"));
+
 
     const updateShowAdd = async () => {
         setShowAdd(!showAdd);
@@ -50,16 +65,21 @@ const ItemContextProvider = ({ children }) => {
         setShowRemove(!showRemove);
     }
 
-    const addItem = (name, expDate, image, quantity) => {
-        setItemList([...itemList, { name, expDate, image, quantity }]);
+    const addItem = (name, expDate, image, quantity, id) => {
+        setItemList([...itemList, { name, expDate, image, quantity, id }]);
         console.log(itemList);
 
     }
 
-    const removeItem = (name) => {
+    const removeItem = (name, deleteList) => {
+        console.log("hi: ", deleteList);
         setItemList(itemList.filter(function(e) {return e.name != name}))
-        console.log(itemList);
+
+        for (let i = 0; i < deleteList.length; i++) {
+            axios.delete('http://localhost:3001/itemList/' + deleteList[i].id)
+        }
     }
+
 
 
     return (
@@ -72,6 +92,8 @@ const ItemContextProvider = ({ children }) => {
             removeItem,
             itemList,
             setItemList,
+            counter,
+            setCounter,
         }}>
             {children}
         </ItemContext.Provider>

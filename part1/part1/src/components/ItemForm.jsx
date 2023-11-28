@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client'
 import ItemContext from '../context/ItemContext'
+import axios from 'axios';
 
 
 const ItemForm = () => {
@@ -11,7 +12,20 @@ const ItemForm = () => {
 
     const AddItem = () => {
         itemContext.updateShowAdd();
-        itemContext.addItem(name, expDate, name + ".svg", 123);
+        itemContext.addItem(name, expDate, name + ".svg", 1);
+
+        axios
+        .post('http://localhost:3001/itemList', {
+            name: name, 
+            expDate: expDate,
+            image: name + ".svg",
+            })
+        .then(response => {
+            console.log("posting: ", response)
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
 
         console.log("you entered " + name);
         console.log("this expires " + expDate);

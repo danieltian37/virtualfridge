@@ -10,7 +10,7 @@ const RemoveForm = () => {
 
     const RemoveItem = () => {
         itemContext.updateShowRemove();
-        itemContext.removeItem(name);
+        itemContext.removeItem(name, itemContext.itemList.filter(item => item.name === name));
 
     }
 

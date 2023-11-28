@@ -9,9 +9,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
+/* OPACITY SET TO 0!!!! FOR CONSOLE TESTING PURPOSES!!!*/
 .covering {
-    z-index: 2;
+    z-index: -2;
     height: 42.3em;
     padding: 1.5em;
     will-change: filter;
@@ -20,6 +20,7 @@
     top: 47.5%;
     left: 73.5%;
     transform: translate(-50%, -50%);
+    opacity: 0;
 }
 
 .flex-container {
@@ -44,13 +45,19 @@
 }
 
 .milk:hover {
-    height:12em;
+    height: 12em;
     opacity: 100;
 }
 
 .eggs {
+    height: 6em;
+    transform: skew(0deg,25deg);
+}
+
+.apple {
     height: 5em;
     transform: skew(0deg,25deg);
+    z-index: 5;
 }
 
 FridgeItem {
