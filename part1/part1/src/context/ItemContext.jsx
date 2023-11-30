@@ -39,7 +39,7 @@ const ItemContextProvider = ({ children }) => {
             try {
                 console.log(token)
                 axios
-                .get('http://localhost:3002/api/items', { headers: { Authorization: token } }
+                .get('https://virtual-fridge-9vs8.onrender.com/api/items', { headers: { Authorization: token } }
                 ).then(response => {
                     const notes = response.data;
                     console.log(notes);
@@ -76,7 +76,7 @@ const ItemContextProvider = ({ children }) => {
             headers: { Authorization: authContext.token },
         }
         for (let i = 0; i < deleteList.length; i++) {
-            axios.delete('http://localhost:3002/api/items/' + deleteList[i].id, config)
+            axios.delete('https://virtual-fridge-9vs8.onrender.com/api/items/' + deleteList[i].id, config)
         }
     }
 

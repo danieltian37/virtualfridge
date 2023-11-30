@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from  'axios';
-const loginUrl = 'http://localhost:3002/api/login'
-const userUrl = 'http://localhost:3002/api/users'
+const loginUrl = 'https://virtual-fridge-9vs8.onrender.com/api/login'
+const userUrl = 'https://virtual-fridge-9vs8.onrender.com/api/users'
 
 const login = async (credentials) => {
   const response = await axios.post(loginUrl, credentials)
