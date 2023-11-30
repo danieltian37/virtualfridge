@@ -21,7 +21,7 @@ const ItemForm = () => {
             headers: { Authorization: authContext.token },
         }
         axios
-        .post('http://localhost:3002/api/items', {
+        .post('https://virtual-fridge-9vs8.onrender.com/api/items', {
             name: name, 
             expDate: expDate,
             image: name + ".svg",
