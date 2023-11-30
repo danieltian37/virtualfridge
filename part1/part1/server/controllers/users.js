@@ -1,5 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -35,20 +37,30 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 
 usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
+  try {  
+    const { username, name, password } = request.body
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(password, saltRounds)
 
-  const saltRounds = 10
-  const passwordHash = await bcrypt.hash(password, saltRounds)
+    const user = new User({
+      username,
+      name,
+      passwordHash,
+    })
+    
+    const savedUser = await user.save()
 
-  const user = new User({
-    username,
-    name,
-    passwordHash,
-  })
-  
-  const savedUser = await user.save()
-
-  response.status(201).json(savedUser)
+    const userForToken = {
+      username: user.username,
+      id: user._id,
+    }
+    const token = jwt.sign(userForToken, process.env.SECRET)
+    response
+      .status(201)
+      .send({ token, username: user.username, name: user.name })
+  } catch (error) {
+    console.log("wowiebazoonga ur username agoonga")
+  }
 })
 
 usersRouter.get('/', async (request, response) => {

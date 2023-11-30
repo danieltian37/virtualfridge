@@ -38,15 +38,19 @@ const getTokenFrom = request => {
 // get function that only gets items that belong to the user
 
 itemsRouter.get('/', async (request, response) => {
-  const token = getTokenFrom(request)
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-  if (!token || !decodedToken.id) {
-      console.log("NOOOOO")
-      return response.status(401).json({ error: 'token missing or invalid' })
+  try {
+    const token = getTokenFrom(request)
+    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    if (!token || !decodedToken.id) {
+        console.log("NOOOOO")
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
+    const user = await User.findById(decodedToken.id)
+    const items = await Item.find({ user: user._id })
+    response.json(items)
+  } catch (error) {
+    console.log("OOPSIE POOPSIE DOOPSIE")
   }
-  const user = await User.findById(decodedToken.id)
-  const items = await Item.find({ user: user._id })
-  response.json(items)
 }) 
 
 

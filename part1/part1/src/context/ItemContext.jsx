@@ -37,7 +37,7 @@ const ItemContextProvider = ({ children }) => {
 
         if (token !== null) {
             try {
-                console.log()
+                console.log(token)
                 axios
                 .get('http://localhost:3002/api/items', { headers: { Authorization: token } }
                 ).then(response => {
@@ -50,27 +50,7 @@ const ItemContextProvider = ({ children }) => {
             }
         }
 
-        /* LOCAL STORAGE CODE
-        const localItemList = JSON.parse(localStorage.getItem("itemList"));
-        if (localItemList !== null) {
-            setItemList(localItemList);
-        } else {
-            console.log("failure"); 
-            setItemList([]);
-        }
-        */
     }, [authContext.token, token, authContext.user])
-    /*
-    useEffect(() => {
-        if (itemList != []) {
-            localStorage.setItem("itemList", JSON.stringify(itemList));
-        }
-
-    }, [itemList])
-    */
-    
-    
-
 
 
     const updateShowAdd = async () => {
