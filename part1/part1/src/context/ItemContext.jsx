@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import AuthenticationContext from '../context/AuthenticationContext';
 
 //initial state
 
@@ -17,20 +18,37 @@ const ItemContext = createContext({
 });
 
 
-const ItemContextProvider = ({ children }) => {
 
+const ItemContextProvider = ({ children }) => {
+    const authContext = useContext(AuthenticationContext);
     const [showAdd, setShowAdd] = useState(initialState.showAdd);
     const [showRemove, setShowRemove] = useState(initialState.showRemove);
     const [itemList, setItemList] = useState(initialState.itemList);
     const [counter, setCounter] = useState(initialState.itemList);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        axios
-            .get('http://localhost:3001/itemList').then(response => {
-                const notes = response.data;
-                console.log(notes);
-                setItemList(notes);
-        })
+        try {
+            setToken(JSON.parse(window.localStorage.getItem('loggedNoteappUser')).token)
+        } catch (error) {
+            setToken(null);
+            console.log("OOPSIE POOPSIE")
+        }
+
+        if (token !== null) {
+            try {
+                console.log()
+                axios
+                .get('http://localhost:3002/api/items', { headers: { Authorization: token } }
+                ).then(response => {
+                    const notes = response.data;
+                    console.log(notes);
+                    setItemList(notes);
+                })
+            } catch (error) {
+                window.alert("not logged in!")
+            }
+        }
 
         /* LOCAL STORAGE CODE
         const localItemList = JSON.parse(localStorage.getItem("itemList"));
@@ -41,7 +59,7 @@ const ItemContextProvider = ({ children }) => {
             setItemList([]);
         }
         */
-    }, [])
+    }, [authContext.token, token, authContext.user])
     /*
     useEffect(() => {
         if (itemList != []) {
@@ -74,9 +92,11 @@ const ItemContextProvider = ({ children }) => {
     const removeItem = (name, deleteList) => {
         console.log("hi: ", deleteList);
         setItemList(itemList.filter(function(e) {return e.name != name}))
-
+        const config = {
+            headers: { Authorization: authContext.token },
+        }
         for (let i = 0; i < deleteList.length; i++) {
-            axios.delete('http://localhost:3001/itemList/' + deleteList[i].id)
+            axios.delete('http://localhost:3002/api/items/' + deleteList[i].id, config)
         }
     }
 

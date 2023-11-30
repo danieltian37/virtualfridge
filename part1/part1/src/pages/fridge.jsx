@@ -4,18 +4,20 @@ import React, { useContext, useState } from "react";
 import AddButton from "../components/button.jsx";
 import ItemContext from "../context/ItemContext";
 import FridgeItem from "../components/FridgeItem";
+import AuthenticationContext from '../context/AuthenticationContext';
 
 import "../graphics.css";
 
 
 const OpenFridge = () => {
   const { itemList } = useContext(ItemContext);
-
-  
+  const authContext = useContext(AuthenticationContext);
+  const name = JSON.parse(window.localStorage.getItem('loggedNoteappUser')).name
 
   return (
     <>
-      <h2>daniel's fridge: </h2>
+      <h2>{name}'s fridge: </h2>
+      <p className="logout">not you? <a onClick={authContext.handleLogout} href="/">log out</a></p>
       <a target="_blank">
         <img src={openedFridge} className="fridge" alt="Fridge" />
         <img src={covering} className="covering" alt="Fridge" />

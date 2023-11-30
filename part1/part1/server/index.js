@@ -1,8 +1,14 @@
 require('dotenv').config()
+const path = require('path')
 const http = require('http')
-
+const itemsRouter = require('./controllers/items')
+const users = require('./controllers/users')
+const usersRouter = users.usersRouter
+const loginRouter = require('./controllers/login')
 const express = require('express')
 const app = express()
+
+app.use(express.static('dist'))
 
 const mongoose = require('mongoose')
 
@@ -21,51 +27,25 @@ const client = new MongoClient(uri, {
 mongoose.set('strictQuery',false)
 mongoose.connect(uri)
 
-const itemSchema = new mongoose.Schema({
-    name: String,
-    expDate: String,
-    image: String,
-})
-itemSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
-
-
-const Item = mongoose.model('Item', itemSchema)
-
-
-let items = [
-    {}
-]
-
-app.use(express.json())
-
-app.get('/api/items', (request, response) => {
-  Item.find({}).then(items => {
-    response.json(items)
-  })
-})
-
-app.post('/api/items', (request, response) => {
-  const item = request.body
-  console.log(item)
-  response.json(item)
-  items.push(item)
-})
-
-
-app.delete('/api/items/:id', (request, response) => {
-  const id = Number(request.params.id)
-  notes = notes.filter(note => note.id !== id)
-
-  response.status(204).end()
-})
-
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+})
+
+const cors = require('cors');
+const corsOptions = {
+  origin:'http://localhost:5173', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors());
+
+app.use(express.json());
+app.use('/api/items', itemsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+
+
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 })
